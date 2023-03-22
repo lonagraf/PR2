@@ -19,8 +19,16 @@ namespace Cabinet
         }
 
         private void textBox1_TextChanged(object sender, System.EventArgs e) {
-            List<Cabinet> LastName = _cabinet.Cabinets.Where(x => x.lastname.Contains(textBox1.Text)).ToList();
-            CabinetDataGrid.DataSource = LastName;
+
+            if (string.IsNullOrEmpty(textBox1.Text))
+            {
+                CabinetDataGrid.DataSource = _cabinet.Cabinets.ToList();
+            }
+            else
+            {
+                var initials = _cabinet.Cabinets.Where(s => s.lastname.ToLower().Contains(textBox1.Text.ToLower())).ToList();
+                CabinetDataGrid.DataSource = initials;
+            }
         }
 
         private void button1_Click(object sender, System.EventArgs e) {
@@ -30,10 +38,9 @@ namespace Cabinet
 
         private void button2_Click(object sender, System.EventArgs e) {
 
-            List<Cabinet> Square = _cabinet.Cabinets.Where(x => x.SquareCabinet > 10).ToList();
-            List<Cabinet> LastName = _cabinet.Cabinets.Where(_x => _x.lastname.Contains("Иванов")).ToList();
+            List<Cabinet> Square = _cabinet.Cabinets.Where(x => x.SquareCabinet > 50).ToList();
             CabinetDataGrid.DataSource = Square;
-            CabinetDataGrid.DataSource = LastName;
+
         }
 
         private void button3_Click(object sender, System.EventArgs e) {
